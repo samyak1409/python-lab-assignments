@@ -1,33 +1,31 @@
 # Write a program to implement Merge sort.
 
 
-# https://youtu.be/JSceec-wEyw
+from typing import List
 
 
-from random import randint
+def merge_sort(arr: List[int]) -> None:
+    """
+    The sort is in-place (i.e. the list itself is modified) and stable (i.e. the order of two equal elements is maintained).
 
+    Article: https://www.geeksforgeeks.org/merge-sort
+    Video: https://youtu.be/JSceec-wEyw
+    """
 
-n = int(input('\nArray Size: '))
-l = [randint(-n, n) for _ in range(n)]
-print('Unsorted:', l)
-
-
-def merge_sort(arr):
-
-    len_ = len(arr)
-    if len_ > 1:  # if array has at least 2 elements
+    arr_len = len(arr)
+    if arr_len > 1:  # if array has at least 2 elements, we'll divide and sort, otherwise obviously an array with only one element is already sorted
 
         # Dividing:
-        mid = len_ // 2
-        left, right = arr[:mid], arr[mid:]  # dividing the array in 2 sub arrays
-        merge_sort(left)  # further dividing left sub array
-        merge_sort(right)  # further dividing right sub array
+        mid_index = arr_len // 2
+        left, right = arr[:mid_index], arr[mid_index:]  # dividing the array in 2 sub arrays
+        # Recurse: Further dividing until arr have only 1 element:
+        merge_sort(arr=left), merge_sort(arr=right)  # IMP: as the reference is passed, left and right will be modified!
 
-        # Sorting (Merging):
+        # Merging:
         i = j = 0
         while i < len(left) and j < len(right):
             # Comparing elements of left and right sub array one by one:
-            if left[i] < right[j]:
+            if left[i] <= right[j]:  # '=' is for stable sorting
                 arr[i+j] = left[i]
                 i += 1
             else:
@@ -36,7 +34,20 @@ def merge_sort(arr):
         # Adding remained elements (if any):
         arr[i+j:] = left[i:] or right[j:]
 
-    return arr
 
+if __name__ == '__main__':
 
-print('Sorted:', merge_sort(arr=l))
+    from random import randint
+
+    size = int(input('\nArray Size: '))
+    array = [randint(-size, size) for _ in range(size)]
+    """
+    print('Unsorted:', array)
+    merge_sort(arr=array)
+    print('Sorted:', array)
+    """
+    # Do not want the array to be modified? Just do it the following way:
+    array2 = array.copy()  # IMP: copy(), so that input array ("array") is not modified while modifying array2
+    merge_sort(arr=array2)
+    print('Unsorted:', array)
+    print('Sorted:', array2)

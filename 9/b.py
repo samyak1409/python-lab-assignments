@@ -1,10 +1,25 @@
-# Write functions to compute gcd, lcm of two numbers. Each function shouldn't exceed one line.
+"""
+Write functions to compute gcd, lcm of two numbers. Each function shouldn't exceed one line.
+"""
 
 
-def gcd(x, y): return gcd(y, x % y) if y else x
+# GCD: https://en.wikipedia.org/wiki/Greatest_common_divisor#Euclidean_algorithm:
+"""
+def gcd(a: int, b: int) -> int:
+    if b == 0:  # base case
+        return a  # ans.
+    return gcd(b, a % b)  # recurse in
+"""
 
 
-def lcm(x, y): return (x * y) // gcd(x, y)
+# One-liner:
+def gcd(a, b):
+    return gcd(b, a % b) if b else a
+
+
+# LCM: https://en.wikipedia.org/wiki/Least_common_multiple#Using_the_greatest_common_divisor:
+def lcm(a, b):
+    return a * (b // gcd(a, b))  # or `b * (a // gcd(a, b))`
 
 
 num1, num2 = int(input('\nnum1: ')), int(input('num2: '))

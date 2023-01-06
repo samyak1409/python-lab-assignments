@@ -1,4 +1,6 @@
-# Write a program to implement Merge sort.
+"""
+Write a program to implement Merge sort.
+"""
 
 
 from typing import List

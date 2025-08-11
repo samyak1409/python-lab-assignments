@@ -30,7 +30,8 @@ print('\nSum of all the primes below 2 million:', sum_)
 # TC = O(n*log(log(n))); SC = O(n)
 # https://www.geeksforgeeks.org/how-is-the-time-complexity-of-sieve-of-eratosthenes-is-nloglogn
 
-is_prime = [i > 1 for i in range(n+1)]  # [0, 1, 2 ... n]
+is_prime = [i > 1 for i in range(n+1)]  # [False, False, True, ... True]
+# print(is_prime)  #debugging
 for num in range(2, int(n**.5)+1):  # [2, √n]
     if is_prime[num]:
         for multiple in range(num*num, n+1, num):
